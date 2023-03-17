@@ -1,0 +1,14 @@
+@labeling_function()
+def whatis(x):
+    import re
+    if re.search(r'what is', x.text.lower()):
+        if re.search(r'ball|team|score', x.text.lower()):
+            return SPORTS
+        elif re.search(r'education', x.text.lower()):
+            return EDUCATION
+        elif re.search(r'computer|printer|pc', x.text.lower()):
+            return COMPUTER
+        else:
+            return SCIENCE
+    else:
+        return ABSTAIN

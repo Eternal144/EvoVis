@@ -1,0 +1,10 @@
+@labeling_function()
+def country(x):
+    import re
+    if re.search(r'country|countries|nation|global|world', x.text.lower()):
+        if re.search(r'cup|tournament', x.text.lower()):
+            return SPORTS
+        else:
+            return SOCIAL
+    else:
+        return ABSTAIN

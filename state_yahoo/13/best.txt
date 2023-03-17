@@ -1,0 +1,13 @@
+@labeling_function()
+def best(x):
+    words = x.text.lower().split(' ')
+    if 'best' in words:
+        if 'faith' in words:
+            return SOCIAL
+        if 'liver' in words:
+            return HEALTH
+        if 'laptop' in words:
+            return COMPUTER
+        if 'soccer' in words:
+            return SPORTS
+    return ABSTAIN

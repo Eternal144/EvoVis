@@ -1,0 +1,7 @@
+@labeling_function()
+def sick(x):
+    import re
+    if re.search(r'sick', x.text.lower()):
+        return HEALTH
+    else:
+        return ABSTAIN

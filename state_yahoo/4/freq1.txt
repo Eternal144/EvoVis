@@ -1,0 +1,14 @@
+@labeling_function()
+def freq1(x):
+    import re
+    social_words = [r'jesus']
+    for word in social_words:
+        if re.search(word, x.text.lower()):
+            return SOCIAL
+    if re.search(r'\+', x.text.lower()) and re.search(r'=', x.text.lower()):
+        return SCIENCE
+    computer_words = [r'files']
+    for word in computer_words:
+        if word in x.text.lower().split(' '):
+            return COMPUTER
+    return ABSTAIN
