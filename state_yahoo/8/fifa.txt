@@ -1,6 +1,0 @@
-@labeling_function()
-def fifa(x):
-    import re
-    if re.search(r'fifa', x.text.lower()):
-        return SPORTS
-    return ABSTAIN

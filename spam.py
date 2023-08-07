@@ -23,7 +23,7 @@ from snorkel.preprocess.nlp import SpacyPreprocessor
 from snorkel.labeling.model import LabelModel
 from snorkel.preprocess import preprocessor
 from textblob import TextBlob
-from sklearn.metrics import f1_score
+from sklearn.metrics import f1_score, precision_score, recall_score
 # 任何python第三方库
 import collections
 
@@ -80,7 +80,7 @@ def getPerformance(preds):
         if pred != -1:
             groundTruth.append(label)
             predicts.append(pred)
-    f1 = f1_score(groundTruth, predicts, average=None)
+    f1 = precision_score(groundTruth, predicts, average=None)
     return f1.tolist()
 
 

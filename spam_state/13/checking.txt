@@ -1,0 +1,6 @@
+@labeling_function()
+def checking(x):
+    if 'checking' in x.text.lower():
+        return HAM
+    else:
+        return ABSTAIN

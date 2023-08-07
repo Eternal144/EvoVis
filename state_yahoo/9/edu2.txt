@@ -1,8 +1,0 @@
-@labeling_function()
-def edu2(x):
-    import re
-    if re.search(r'education', x.text.lower()):
-        if re.search(r'degree', x.text.lower()):
-            return EDUCATION
-    
-    return ABSTAIN

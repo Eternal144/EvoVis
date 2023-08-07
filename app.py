@@ -91,13 +91,18 @@ def parseRecord(rowRecords,rowCodes):
 
 def parse_args():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--data', type=str, default='yahoo_15000.csv', help='data file path')
-    parser.add_argument('--train_num', type=int, default=15000, help='number of training data')
-    parser.add_argument('--record', type=str, default='records_yahoo.json', help='record file path')
-    parser.add_argument('--function_dir', type=str, default='state_yahoo', help='function file path')
-    parser.add_argument('--result', type=str, default='result_yahoo.json', help='result file path')
-    
+    # parser.add_argument('--data', type=str, default='yahoo_15000.csv', help='data file path')
+    # parser.add_argument('--train_num', type=int, default=15000, help='number of training data')
+    # parser.add_argument('--record', type=str, default='records_yahoo.json', help='record file path')
+    # parser.add_argument('--function_dir', type=str, default='state_yahoo', help='function file path')
+    # parser.add_argument('--result', type=str, default='result_yahoo.json', help='result file path')
 
+    parser.add_argument('--data', type=str, default='spam.csv', help='data file path')
+    parser.add_argument('--train_num', type=int, default=4000, help='number of training data')
+    parser.add_argument('--record', type=str, default='records.json', help='record file path')
+    parser.add_argument('--function_dir', type=str, default='spam_state', help='function file path')
+    parser.add_argument('--result', type=str, default='result_spam.json', help='result file path')
+    
     args = parser.parse_args()
     return args
 
@@ -105,6 +110,7 @@ if __name__ == '__main__':
     args = parse_args()
     spam.base = args.train_num
     spam.data = pd.read_csv(args.data, header=0, delimiter='\t', encoding='unicode_escape')
+
     spam.df_train = spam.data[:args.train_num]
     spam.df_test = spam.data[args.train_num:]
     

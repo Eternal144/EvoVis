@@ -1,0 +1,13 @@
+@labeling_function()
+def students(x):
+    import re
+    if re.search(r"student", x.text.lower()):
+        if re.search(r"school|will|not", x.text.lower()):
+            return EDUCATION
+        if re.search(r'words', x.text.lower()):
+            return SOCIAL
+        if re.search(r'computer', x.text.lower()):
+            return COMPUTER
+                
+    
+    return ABSTAIN

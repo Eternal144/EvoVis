@@ -8,36 +8,36 @@
     },
     {
         "id": 1,
-        "add": ["edu", "ball", "key"],
+        "add": ["edu", "key"],
         "del": [],
         "update": ["sick"],
         "date": "2023/03/08 00:12"
     },
     {
         "id": 2,
-        "add": ["whatis", "uni"],
+        "add": ["whatis"],
         "del": [],
-        "update": ["country", "ball"],
+        "update": ["country"],
         "date": "2023/03/08 09:13"
     },
     {
         "id": 3,
-        "add": ["whatis_v2"],
+        "add": ["whatis_v2","work"],
         "del": ["whatis"],
         "update": ["country"],
         "date": "2023/03/08 20:36"
     },
     {
         "id": 4,
-        "add": ["freq1", "freq2"],
-        "del": [],
+        "add": ["freq1", "freq2","exercise"],
+        "del": ["work"],
         "update": ["country"],
         "date": "2023/03/08 23:18"
     },
     {
         "id": 5,
         "add": ["equation", "study"],
-        "del": ["science", "uni"],
+        "del": ["science"],
         "update": ["sick"],
         "date": "2023/03/09 20:39"
     },
@@ -50,65 +50,174 @@
     },
     {
         "id": 7,
-        "add": ["freq4", "company"],
+        "add": ["machine","cpt_words", "system"],
         "del": [],
-        "update": ["students"],
-        "date": "2023/03/09 22:33"
+        "update": [],
+        "date": "2023/03/09 21:34"
     },
     {
         "id": 8,
-        "add": ["college", "fifa", "nba"],
+        "add": [
+            "freq4",
+            "company"
+        ],
         "del": [],
-        "update": [],
-        "date": "2023/03/10 00:28"
+        "update": [
+            "students"
+        ],
+        "date": "2023/03/09 22:33"
     },
     {
         "id": 9,
-        "add": ["click", "edu2"],
-        "del": ["uni"],
-        "update": ["edu"],
-        "date": "2023/03/10 00:46"
+        "add": [
+            "college"
+        ],
+        "del": [
+            "freq3"
+        ],
+        "update": [
+            "cpt_words"
+        ],
+        "date": "2023/03/10 00:28"
     },
     {
         "id": 10,
-        "add": ["poem"],
-        "del": [],
-        "update": ["whatis_v2"],
-        "date": "2023/03/10 14:46"
+        "add": [
+            "click",
+            "edu2"
+        ],
+        "del": [
+            "whatis_v2"
+        ],
+        "update": [
+            "sick"
+        ],
+        "date": "2023/03/10 00:46"
     },
     {
         "id": 11,
-        "add": ["whyis", "rate"],
+        "add": [
+            "poem",
+            "whatis_v3",
+            "religion"
+        ],
         "del": [],
-        "update": ["whatis_v2"],
-        "date": "2023/03/10 15:42"
+        "update": [
+            "edu"
+        ],
+        "date": "2023/03/10 14:46"
     },
     {
         "id": 12,
-        "add": ["rate2"],
+        "add": [
+            "whyis",
+            "nba",
+            "uni"
+        ],
         "del": [],
-        "update": ["rate", "whatis_v2"],
-        "date": "2023/03/10 17:43"
+        "update": [
+            "whatis_v3"
+        ],
+        "date": "2023/03/10 15:42"
     },
     {
         "id": 13,
-        "add": ["best", "pc", "microsoft"],
+        "add": [
+            "rate2",
+            "meal",
+            "key_v2"
+        ],
         "del": [],
-        "update": [],
-        "date": "2023/03/10 17:52"
+        "update": [
+            "whatis_v3"
+        ],
+        "date": "2023/03/10 17:43"
     },
     {
         "id": 14,
-        "add": ["best2", "best3"],
+        "add": [
+            "best",
+            "pc",
+            "microsoft"
+        ],
         "del": [],
-        "update": ["pc"],
-        "date": "2023/03/10 17:59"
+        "update": ["meal","exercise"],
+        "date": "2023/03/10 17:52"
     },
     {
         "id": 15,
-        "add": ["list", "list2"],
+        "add": [
+            "best2",
+            "best3"
+        ],
         "del": [],
-        "update": ["key"],
+        "update": [
+            "pc"
+        ],
+        "date": "2023/03/10 17:59"
+    },
+    {
+        "id": 16,
+        "add": [
+            "list",
+            "ache"
+        ],
+        "del": [],
+        "update": [
+            "key",
+            "college"
+        ],
+        "date": "2023/03/10 18:27"
+    },
+    {
+        "id": 17,
+        "add": [
+            "fifa",
+            "chris"
+        ],
+        "del": [],
+        "update": [
+            
+        ],
+        "date": "2023/03/10 18:27"
+    },
+    {
+        "id": 18,
+        "add": [
+        ],
+        "del": ["key_v2"],
+        "update": [
+            
+        ],
+        "date": "2023/03/10 18:27"
+    },
+    {
+        "id": 19,
+        "add": [
+            "list2",
+            "rate",
+            "greenhouse",
+            "ball"
+        ],
+        "del": [
+            "college"
+        ],
+        "update": [
+        ],
+        "date": "2023/03/10 18:27"
+    },
+    {
+        "id": 20,
+        "add": [
+            "financial", "freq5"
+        ],
+        "del": [
+            "uni"
+        ],
+        "update": [
+            "ball"
+        ],
         "date": "2023/03/10 18:27"
     }
+
 ]

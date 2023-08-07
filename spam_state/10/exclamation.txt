@@ -1,0 +1,6 @@
+@labeling_function()
+def exclamation(x):
+    s = '!'
+    if s in x.text.lower():
+        return SPAM
+    return ABSTAIN

@@ -1,0 +1,3 @@
+@labeling_function()
+def money(x):
+    return SPAM if re.search(r'£\d*', x.text,flags=re.I) else ABSTAIN

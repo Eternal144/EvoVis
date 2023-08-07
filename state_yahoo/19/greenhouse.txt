@@ -1,0 +1,8 @@
+@labeling_function()
+def greenhouse(x):
+    words = x.text.lower().split(' ')
+    green_words = ['co2', 'gases', 'ions']
+    for word in words:
+        if word in green_words:
+            return SCIENCE
+    return ABSTAIN

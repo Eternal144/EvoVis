@@ -1,0 +1,9 @@
+@labeling_function()
+def free(x):
+    free_str = ['free']
+    for s in free_str:
+        if s in x.text.lower():
+            return HAM
+        else:
+            return SPAM
+    return ABSTAIN

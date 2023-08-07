@@ -1,7 +1,0 @@
-@labeling_function()
-def microsoft(x):
-    import re
-    if re.search(r"microsoft", x.text.lower()):
-        return COMPUTER
-    else:
-        return ABSTAIN

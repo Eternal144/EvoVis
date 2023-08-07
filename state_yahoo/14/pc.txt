@@ -1,7 +1,6 @@
 @labeling_function()
 def pc(x):
     import re
-    if 'pc' in x.text.lower().split(' '):
+    if re.search(r'pc', x.text.lower()):
         return COMPUTER
-    
     return ABSTAIN
