@@ -1,6 +1,0 @@
-@labeling_function()
-def pc(x):
-    import re
-    if re.search(r'pc', x.text.lower()):
-        return COMPUTER
-    return ABSTAIN

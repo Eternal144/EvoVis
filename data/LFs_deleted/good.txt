@@ -1,0 +1,12 @@
+@labeling_function()
+def good(x):
+    words = x.text.lower().split(' ')
+    import re
+    if 'best' in words:
+        if 'pray' in words:
+            return SOCIAL
+        if re.search(r'england', x.text.lower()):
+            return COMPUTER
+        if re.search(r'universit', x.text.lower()):
+            return EDUCATION
+    return ABSTAIN

@@ -1,6 +1,0 @@
-@labeling_function()
-def p_number(x):
-    if re.search(r'0\d{1,3}-?[0-9]\d{6,7}', x.text, flags=re.I):
-        return SPAM
-    else:
-        return ABSTAIN

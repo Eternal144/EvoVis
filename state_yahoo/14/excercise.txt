@@ -1,7 +1,0 @@
-@labeling_function()
-def exercise(x):
-    import re
-    if re.search(r'exercise', x.text.lower()):
-        if re.search(r'weight|30|lower|pounds', x.text.lower()):
-            return HEALTH
-    return ABSTAIN

@@ -1,7 +1,0 @@
-@labeling_function()
-def freq2(x):
-    if 'doctor' in x.text.lower().split(' '):
-        return HEALTH
-    if 'les' in x.text.lower().split(' '):
-        return SPORTS
-    return ABSTAIN

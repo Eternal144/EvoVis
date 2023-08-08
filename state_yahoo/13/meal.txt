@@ -1,6 +1,0 @@
-@labeling_function()
-def meal(x):
-    import re
-    if re.search(r'diet|food|meal', x.text.lower()):
-        return HEALTH
-    return ABSTAIN

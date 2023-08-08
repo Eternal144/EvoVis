@@ -1,7 +1,0 @@
-@labeling_function()
-def freq3(x):
-    import re
-    if re.search(r'school', x.text.lower()):
-        return EDUCATION
-    else:
-        return ABSTAIN

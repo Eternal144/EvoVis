@@ -1,3 +1,0 @@
-@labeling_function()
-def checkout_new(x):
-    return SPAM if 'check out' in x.text.lower() else ABSTAIN

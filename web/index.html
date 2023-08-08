@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compattible" user-scalabel="0">
+    <title>word embedding</title>
+    <!-- 引入codemirror css -->
+    <link href="lib/codemirror/css/codemirror.css" rel="stylesheet" />
+    <link href="lib/codemirror/css/foldgutter.css" rel="stylesheet" />
+    <link href="lib/codemirror/css/lint.css" rel="stylesheet" />
+    <link href="lib/codemirror/css/monokai.css" rel="stylesheet" />
+    <link href="lib/codemirror/css/show-hint.css" rel="stylesheet" />
+
+    <!-- 引入css -->
+    <link href="css/index.css" rel="stylesheet" />
+    <link href="css/table.css" rel="stylesheet" />
+    <link href="css/jquery.dataTables.min.css" rel="stylesheet" />  
+    <link href="css/button.css" rel="stylesheet" />
+    <link href="css/slider.css" rel="stylesheet" />
+    <link href="css/maneuver.css" rel="stylesheet">
+
+    <!-- 引入codemirror js-->
+    <script src="lib/codemirror/js/codemirror.js"></script>
+    <script src="lib/codemirror/js/comment.js"></script>
+    <script src="lib/codemirror/js/active-line.js"></script>
+    <script src="lib/codemirror/js/sublime.js"></script>
+    <script src="lib/codemirror/js/show-hint.js"></script>
+    <script src="lib/codemirror/js/python.js"></script>
+    <script src="lib/codemirror/js/foldcode.js"></script>
+    <script src="lib/codemirror/js/foldgutter.js"></script>
+    <script src="lib/codemirror/js/brace-fold.js"></script>
+    <script src="lib/codemirror/js/comment-fold.js"></script>
+    <script src="lib/codemirror/js/indent-fold.js"></script>
+    <script src="lib/codemirror/js/closebrackets.js"></script>
+    <script src="lib/codemirror/js/matchbrackets.js"></script>
+
+    <!-- 引入外部js -->
+    <script src="lib/d3.v4.min.js"></script>
+    <script src="/eel.js" type="text/javascript"></script>
+    <script src="lib/jquery-3.4.0.min.js"></script>
+    <script src="lib/d3-lasso.min.js"></script>
+    <script src="lib/jquery.dataTables.min.js"></script>
+    <script src="lib/d3-queue.min.js"></script>
+    <script src="lib/bubblesets.js"></script>
+    <script src="lib/d3-scale-chromatic.v3.js"></script>
+    <script src="lib/diff.min.js"></script>
+    <script src="lib/echarts.min.js"></script>
+    <script src="lib/d3-sankey.min.js"></script>
+    <script src="lib/d3-annotation.js"></script>
+    
+</head>
+<body>
+    <!-- <button onclick="toggleView()">toggle</button> -->
+    <div id="root">
+        <div class="maneuver-container">
+            <div class="selected-lfs-container">
+                <div class="lfs-header">Selected Labeling Functions</div>
+                <div class="selected-lfs-cards"></div>
+            </div>
+            <div class="candidate-lfs-container">
+                <div class="lfs-header">Candidate Labeling Functions:</div>
+                <div class="candidate-lfs-cards"></div>
+            </div>
+        </div>
+        <div class="visualization-container">
+            <div id="left">
+                <div id="left-top">
+                    <div class="component-header">Label Info</div>
+                    <div class="conclusion">
+                        <div class="conclusion-item conclusion-item-line">
+                            <div class="label conclusion-label">Dataset Name:</div>
+                            <div id="dataset-name">Yahoo! Answers</div>
+                        </div>
+    
+                        <div class="conclusion-item-line">
+                            <div class="conclusion-item line-left">
+                                <div class="label conclusion-label">Total Versions</div>
+                                <div class="conclusion-value" id="total-version">39</div>
+                            </div>
+    
+                            <div class="conclusion-item line-right">
+                                <div class="label conclusion-label">Current Versions Selected</div>
+                                <div class="conclusion-value" id="version-id">1-8</div>
+                            </div>
+                        </div>
+    
+                        <div class="conclusion-item-line">
+                            <div class="conclusion-item line-left">
+                                <div class="label conclusion-label">Total Count</div>
+                                <div class="conclusion-value" id="total-count">4000</div>
+                            </div>
+                            <div class="conclusion-item line-right">
+                                <div class="label conclusion-label">Current Labeled Count:</div>
+                                <div class="conclusion-value" id="label-count">1463</div>
+                            </div>
+                        </div>
+                        
+                        <div class="conclusion-item-line">
+                            <div class="conclusion-item line-left">
+                                <div class="label conclusion-label">Precision</div>
+                                <div class="conclusion-value" id="precision">0.84</div>
+                            </div>
+    
+                            <div class="conclusion-item line-right">
+                                <div class="label conclusion-label">Current LFs Count</div>
+                                <div class="conclusion-value" id="Lfs-number">63</div>
+                            </div>
+                        </div>
+    
+                        <div class="conclusion-item-line">
+                            <div class="conclusion-item line-left">
+                                <div class="label conclusion-label">
+                                    Society<div class='color-block'></div>
+                                </div>
+                                <div class="conclusion-value" id="label-0">630</div>
+                            </div>
+    
+                            <div class="conclusion-item line-left">
+                                <div class="label conclusion-label">
+                                    Science<div class='color-block'></div>
+                                </div>
+                                <div class="conclusion-value" id="label-1">278</div>
+                            </div>
+    
+                            <div class="conclusion-item line-right">
+                                <div class="label conclusion-label">
+                                    Health<div class='color-block'></div>
+                                </div>
+                                <div class="conclusion-value" id="label-2">278</div>
+                            </div>
+                        </div>
+    
+                        <div class="conclusion-item-line">
+                            <div class="conclusion-item line-left">
+                                <div class="label conclusion-label">
+                                    Education<div class='color-block'></div>
+                                </div>
+                                <div class="conclusion-value" id="label-3">630</div>
+                            </div>
+    
+                            <div class="conclusion-item line-left">
+                                <div class="label conclusion-label">
+                                    Computers<div class='color-block'></div>
+                                </div>
+                                <div class="conclusion-value" id="label-4">278</div>
+                            </div>
+    
+                            <div class="conclusion-item line-right">
+                                <div class="label conclusion-label">
+                                    Sports<div class='color-block'></div>
+                                </div>
+                                <div class="conclusion-value" id="label-5">278</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="left-middle">
+                    <div class="component-header">LFs Table</div>
+                    <div class="reset-buttom lfs-reset" onclick="resetLfs()">reset</div>
+                    <div id="lfs-list-container">
+                        
+                        <table id="lfs-table">
+                            <colgroup>
+                                <col style="width: 22%">
+                                <col style="width: 22%">
+                                <col style="width: 23%">
+                                <col style="width: 20%">
+                                <col style="width: 18%">
+                                <col style="width: 15%">
+                            </colgroup>
+                            <thead class="sticky-header">
+                                <tr>
+                                    <th>Name</th>
+                                    <th onclick="sortTable(1)">Accuracy</th>
+                                    <th onclick="sortTable(2)">Coverage</th>
+                                    <th onclick="sortTable(3)">Weight</th>
+                                    <th onclick="sortTable(4)">State</th>
+                                    <th>Version</th>
+                                </tr>
+                            </thead>
+                            <tbody id="table-body">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div id="left-bottom">
+                    <div class="component-header">Code Review</div>
+                    <div class="reset-buttom" onclick="resetCode()">reset</div>
+                    <textarea id="code-review-container"></textarea>
+                </div>
+            </div>
+            <div id="middle">
+                <div id="middle-top">
+                    <div class="component-header">Data Aggregation</div>
+                    <div id="aggregate-container"></div>
+                    <div class="slider-container">
+                        <div class="slider-name">zoom slider:</div>
+                        <div class="slider" id="slider"></div>
+                    </div>
+                </div>
+                <div id="middle-bottom">
+                    <div class="header-container">
+                        <div class="component-header">Evolution Flow</div>
+                        <div id="version-filter-container"></div>
+                    </div>
+                    <div id="lfs-container">
+                        <div id="lfs-version-container"></div>
+                        <div id="sankey-container"></div>
+                    </div>
+                    <div class="slider-container pattern-slider-container">
+                        <div class="slider" id="pattern-slider"></div>
+                        <div class="pattern-name slider-name">pattern</div>
+                    </div>
+                    <div class="lfs-evolution">LFs evolution</div>
+                    <div class="labeled-evolution">Labeled data evolution</div>
+                </div>
+            </div>
+    
+            <div id="right">
+                <div id="right-top">
+                    <div class="component-header">Data Review</div>
+                    <div class="text-count">
+                        <div class="text-count-label">Text Total Count:</div>
+                        <div id="text-count-value">20</div>
+                    </div>
+                    <div class="slider-container filter-slider-container">
+                        <div class="pattern-name slider-name">inconsistent:</div>
+                        <div class="slider" id="filter-slider"></div>
+                    </div>
+                    <div id="text-review-container"></div>
+                </div>
+                <div id="right-middle">
+                    <div class="component-header">Performance Line</div>
+                    <div id="performance-container"></div>
+                </div>
+    
+                <div id="right-bottom">
+                    <div class="component-header">Label Relation</div>
+                    <div id="relation-container"></div> 
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="timer"></div>
+    <button class="float-button train-button" onclick="trainModel()">train</button>
+    <button class="float-button toggle-button" onclick="toggleView()">toggle</button>
+
+    <script src="Mjs/timer.js"></script>
+    <script src="Mjs/candidate.js"></script>
+    <script src="Mjs/selected.js"></script>
+    
+    
+    <script src="Vjs/pattern-slider.js"></script>
+    <script src="Vjs/filter-slider.js"></script>
+    <script src="Vjs/slider.js"></script>
+    <script src="Vjs/utils.js"></script>
+    <script src="Vjs/sankey.js"></script>
+    <script src="Vjs/burst.js"></script>
+    <script src="Vjs/burst-lfs.js"></script>
+    <script src="Vjs/code-review.js"></script>
+    <script src="Vjs/lfs-list.js"></script>
+    <script src="Vjs/performance.js"></script>
+    <script src="Vjs/aggregate.js"></script>
+    <script src="Vjs/text-review.js"></script>
+    <script src="Vjs/scatterplot.js"></script>
+    <script src="Vjs/version-filter.js"></script>
+    <script src="Vjs/version-line.js"></script>
+    <script src="Vjs/zoom-line.js"></script>
+
+    <script src="Mindex.js"></script>
+    <script src="Vindex.js"></script>
+</body>
+</html>

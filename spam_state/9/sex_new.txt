@@ -1,7 +1,0 @@
-@labeling_function()
-def sex_new(x):
-    sex_str = ['sex']
-    for s in sex_str:
-        if s in x.text.lower():
-            return SPAM
-    return ABSTAIN

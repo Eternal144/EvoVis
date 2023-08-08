@@ -1,25 +1,10 @@
-from cProfile import label
-from cgitb import reset
-import code
-from itertools import count
-from turtle import right, update
-from unicodedata import name
-from unittest import result
-from matplotlib import test
-from more_itertools import last
-from sklearn.metrics import coverage_error
-import spacy
-import os
-import re
-import json
 import pandas as pd
 import numpy as np
-import math
-from pandas.core.frame import DataFrame
+# from pandas.core.frame import DataFrame
 from snorkel.labeling import labeling_function
 from snorkel.labeling import PandasLFApplier
 from snorkel.labeling import LFAnalysis
-from snorkel.preprocess.nlp import SpacyPreprocessor
+# from snorkel.preprocess.nlp import SpacyPreprocessor
 from snorkel.labeling.model import LabelModel
 from snorkel.preprocess import preprocessor
 from textblob import TextBlob
@@ -31,6 +16,14 @@ lfs = []
 records = []
 funcStrs = []
 lfs_names = []
+
+#显示所有列
+pd.set_option('display.max_columns', None)
+#显示所有行
+pd.set_option('display.max_rows', None)
+#设置value的显示长度为100，默认为50
+pd.set_option('max_colwidth',100)
+
 
 global data, df_train, df_test, base
 
@@ -73,15 +66,24 @@ def get_func_name(code):
 
 # calculate F1 score
 def getPerformance(preds):
-    # remove all the f1 in preds
     groundTruth = []
     predicts = []
     for pred, label in zip(preds, df_test['label']):
         if pred != -1:
             groundTruth.append(label)
             predicts.append(pred)
-    f1 = precision_score(groundTruth, predicts, average=None)
-    return f1.tolist()
+    f1 = f1_score(groundTruth, predicts, average=None)
+    perf = [float('{:.3f}'.format(i)) for i in f1.tolist()]
+    return perf
+
+# calculate coverage
+def getCoverage(preds):
+    count= [0,0,0,0,0,0]
+    for pred in preds:
+        if pred != -1:
+            count[pred] = count[pred]+1
+    count = [float('{:.3f}'.format(i/15000)) for i in count]
+    return count
 
 
 def apply_lfs(funcs, id, lastFuncs = []):
@@ -90,7 +92,12 @@ def apply_lfs(funcs, id, lastFuncs = []):
     for func in funcs:
         if funcs[func]['state'] != DEL:
             funcCode = funcs[func]['codes']
-            exec(funcCode)
+            try:
+                exec(funcCode)
+            except Exception as e:
+                # Raise the exception to propagate it
+                raise e
+
             name = get_func_name(funcCode)
             lfs.append(eval(name))
             names.append(name)
@@ -104,6 +111,17 @@ def apply_lfs(funcs, id, lastFuncs = []):
     preds_test = label_model.predict(L_test)
     performance = getPerformance(preds_test)
     weights = label_model.get_weights()
+
+    coverage = getCoverage(preds_train)
+    # print(type(LFAnalysis(L=L_train, lfs=lfs).lf_summary()))
+    print(LFAnalysis(L=L_train, lfs=lfs).lf_summary())
+    print('precision----------------------------')
+    print(performance)
+    print('coverage----------------------')
+    print(coverage)
+    print('total coverage----------------------')
+    print(float('{:.3f}'.format(sum(coverage))))
+ 
 
     analysis = LFAnalysis(L=L_train, lfs=lfs)
     for (i, coverage) in enumerate(list(analysis.lf_coverages())):

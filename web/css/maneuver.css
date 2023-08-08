@@ -1,0 +1,102 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+    width: 100%;
+    padding: 4px;
+}
+#root {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+.maneuver-container{
+    /* align-items: center; */
+    width: 100%;
+    height: 100%;
+    padding-top: 30px;
+    justify-content: space-around;
+}
+
+.visualization-container{
+    width: 100%;
+    height: 100%;
+    display: none;
+}
+
+.selected-lfs-container{
+    width: 850px;
+    overflow-y: scroll;
+    height: 100%;
+    /* height: 100%; */
+    /* border: 2px solid rgba(0,0,0,.3); */
+}
+.candidate-lfs-container{
+    overflow-y: scroll;
+    width: 800px;
+    height: 100%;
+    /* border: 2px solid rgba(0,0,0,.3); */
+}
+.lfs-card{
+    display: inline-flex;
+    width: 100%;
+    padding: 10px;
+    margin: 0 0 20px 0;
+    border-radius: 10px;
+}
+.lfs-card:hover{
+    cursor: pointer;
+}
+.lfs-id{
+    margin-right: 10px;
+}
+.lfs-detail{
+    white-space: pre;
+}
+.lfs-header{
+    font-size: 20px;
+    font-size: 600;
+}
+
+#timer{
+    position: fixed;
+    top: 50px;
+    right: 60px;
+    font-size: 24px;
+    font-weight: 800;
+}
+.float-button{
+    position: fixed;
+    bottom: 20px;
+    padding: 10px;
+}
+/* .float-button:hover, manage-button:hover{
+    cursor: pointer;
+} */
+.train-button{
+    left: 1100px;
+}
+.toggle-button{
+    right: 60px;
+}
+
+textarea {
+    width: 700px;
+    min-height: 150px;
+}
+.manage-lfs{
+    height: 30px;
+    margin: 0 4px 4px 4px;
+    width: 56px;
+}
+
+
+button:hover{
+    cursor: pointer;
+}

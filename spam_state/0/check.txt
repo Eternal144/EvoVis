@@ -1,3 +1,0 @@
-@labeling_function()
-def check(x):
-    return SPAM if 'check' in x.text.lower() else ABSTAIN

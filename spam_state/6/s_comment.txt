@@ -1,3 +1,0 @@
-@labeling_function()
-def s_comment(x):
-    return HAM if len(x.text.split()) < 4 else ABSTAIN

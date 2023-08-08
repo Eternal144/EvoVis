@@ -1,7 +1,0 @@
-@labeling_function()
-def subscribe_new(x):
-    subscribe_str = ['subscribe']
-    for s in subscribe_str:
-        if s in x.text.lower():
-            return SPAM
-    return ABSTAIN

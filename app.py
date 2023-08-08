@@ -2,23 +2,25 @@ import json
 import eel
 import os
 import spam
-import argparse
+import numpy as np
 import pandas as pd
+import shutil
 
-# eel.init('web')
+eel.init('web')
 ADD = 0
 UPD = 1
 DEL = 2
 KEEP = 3
-
-global args
+# global args
+record = []
+states_path = './data/state_yahoo/'
 
 # get function names from state directory
 def get_func(l):
     func = []
     for i in range(l):
         state = []
-        path = '{}/{}/'.format(args.function_dir, i)
+        path = '{}{}/'.format(states_path, i)
         files = os.listdir(path)
         for file in files:
             with open(path+file) as f:
@@ -29,13 +31,17 @@ def get_func(l):
 # get results of the lfs
 def compute(funcVersions):
     result = []
+    # print(funcVersions)
     for (vid, version) in enumerate(funcVersions):
         if vid != 0:
             result.append(spam.apply_lfs(version, vid, funcVersions[vid-1]))
         else:
             result.append(spam.apply_lfs(version, vid))
-    with open(args.result, 'w') as f:
+
+    with open('./data/result_yahoo.json', 'w') as f:
         json.dump(result, f)
+    return result
+    
 
 # get label function name from its code
 def getFuncName(code):
@@ -89,36 +95,113 @@ def parseRecord(rowRecords,rowCodes):
                 }
     return funcVersion
 
-def parse_args():
-    parser = argparse.ArgumentParser()
-    # parser.add_argument('--data', type=str, default='yahoo_15000.csv', help='data file path')
-    # parser.add_argument('--train_num', type=int, default=15000, help='number of training data')
-    # parser.add_argument('--record', type=str, default='records_yahoo.json', help='record file path')
-    # parser.add_argument('--function_dir', type=str, default='state_yahoo', help='function file path')
-    # parser.add_argument('--result', type=str, default='result_yahoo.json', help='result file path')
+# def parse_args():
+#     parser = argparse.ArgumentParser()
+#     parser.add_argument('--train_num', type=int, default=15000, help='number of training data') 
+#     parser.add_argument('--data', type=str, default='yahoo_15000.csv', help='data file path')
+#     parser.add_argument('--result', type=str, default='result_yahoo.json', help='result file path')
 
-    parser.add_argument('--data', type=str, default='spam.csv', help='data file path')
-    parser.add_argument('--train_num', type=int, default=4000, help='number of training data')
-    parser.add_argument('--record', type=str, default='records.json', help='record file path')
-    parser.add_argument('--function_dir', type=str, default='spam_state', help='function file path')
-    parser.add_argument('--result', type=str, default='result_spam.json', help='result file path')
+#     # update records of optimization
+#     parser.add_argument('--record', type=str, default='records_yahoo.json', help='record file path')
+#     # content of updated function  
+#     parser.add_argument('--function_dir', type=str, default='state_yahoo', help='function file path')
     
-    args = parser.parse_args()
-    return args
+#     args = parser.parse_args()
+#     return args
 
-if __name__ == '__main__':
-    args = parse_args()
-    spam.base = args.train_num
-    spam.data = pd.read_csv(args.data, header=0, delimiter='\t', encoding='unicode_escape')
+@eel.expose
+def readLFsList():
+    dir = './data/LFs'
+    file_names = os.listdir(dir)
+    LFsList = []
+    for (i,file_name) in enumerate(file_names):
+        file_path = os.path.join(dir, file_name)
+        with open(file_path) as f: 
+            texts = f.read()
+            LFsList.append({
+                'id': i,
+                'name': file_name,
+                'text': texts
+            })
+    return LFsList
 
-    spam.df_train = spam.data[:args.train_num]
-    spam.df_test = spam.data[args.train_num:]
-    
+def run():
+    spam.base = 15000
+    spam.data = pd.read_csv('./data/yahoo_15000.csv', header=0, delimiter='\t', encoding='unicode_escape')
 
-    with open(args.record) as f:
-        rowRecords = json.load(f)
+    spam.df_train = spam.data[:15000]
+    spam.df_test = spam.data[15000:]
+
+    # with open('records_yahoo_test.json') as f:
+    #     rowRecords = json.load(f)
+    rowRecords = record
+    if len(rowRecords) > 0:
         rowCodesVersion = get_func(len(rowRecords))
         funcVersions = parseRecord(rowRecords, rowCodesVersion)
-        compute(funcVersions)
+        return compute(funcVersions)   
 
-# eel.start('index.html', mode="chrome-app")
+@eel.expose
+def writeFile(data):
+    global record
+    # if data['id']==0 & len(record)>0:
+    #     record = []
+    result = []
+    record.append({
+        'id': data['id'],
+        'add': [x['name'][:-4] for x in data['add']],
+        'del': [x['name'][:-4] for x in data['del']],
+        'update': [x['name'][:-4] for x in data['update']],
+        "date": data['date']
+    })
+
+    file_path = states_path+str(data['id'])
+    os.mkdir(file_path)
+
+    for func in data['add']:
+        with open(file_path+'/'+func['name'],'a+') as f:
+            f.write(func['text'])
+    
+    for func in data['update']:
+        with open(file_path+'/'+func['name'],'a+') as f:
+            f.write(func['text'])
+    
+    try:
+        result = run()
+    except Exception as e:
+        record.pop()
+        shutil.rmtree(file_path)
+        print(f"An error occurred: {e}")
+
+    with open('./data/records_yahoo.json', 'w') as f:
+        json.dump(record, f)
+    return result
+    
+
+@eel.expose
+def get_coords():
+    doc_vector = np.load('./data/yahoo.npy')
+    return doc_vector.tolist()
+ 
+@eel.expose
+def num2portion(data):
+    for level1 in data["children"]:
+        level1_size = level1["size"]
+        level1["originSize"] = level1["size"]
+        level2_sum = sum([level2["size"] for level2 in level1["children"]])
+        for level2 in level1["children"]:
+            level2["originSize"] = level2["size"]
+            level2["size"] = level2["size"] / level2_sum * level1_size
+            level3_sum = sum([level3["size"] for level3 in level2["children"]])
+            for level3 in level2["children"]:
+                level3["originSize"] = level3["size"]
+                level3["size"] = level3["size"] / level3_sum * level2["size"]
+            del level2["size"]
+        del level1["size"]
+    return data
+
+shutil.rmtree(states_path)
+os.mkdir(states_path)
+
+# if __name__ == '__main__': # args = parse_args()
+
+eel.start('index.html', mode="chrome-app", port=8080)

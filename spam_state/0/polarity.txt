@@ -1,3 +1,0 @@
-@labeling_function(pre=[textblob_sentiment])
-def polarity(x):
-    return HAM if x.polarity > 0.9 else ABSTAIN

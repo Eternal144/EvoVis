@@ -1,7 +1,0 @@
-@labeling_function()
-def eat(x):
-    eat_str = ['eat']
-    for s in eat_str:
-        if s in x.text.lower():
-            return HAM
-    return ABSTAIN

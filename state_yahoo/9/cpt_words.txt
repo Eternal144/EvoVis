@@ -1,6 +1,0 @@
-@labeling_function()
-def cpt_words(x):
-    import re
-    if re.search(r'file|graphic|desktop|memory|nvidia', x.text.lower()):
-        return COMPUTER
-    return ABSTAIN

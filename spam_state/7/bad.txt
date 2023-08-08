@@ -1,7 +1,0 @@
-@labeling_function()
-def bad(x):
-    bad_str = ['bad']
-    for s in bad_str:
-        if s in x.text.lower():
-            return HAM
-    return ABSTAIN

@@ -1,6 +1,0 @@
-@labeling_function()
-def s_comment(x):
-    if len(x.text.split()) < 5:
-        return HAM
-    else:
-        return ABSTAIN

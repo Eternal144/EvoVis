@@ -1,7 +1,0 @@
-@labeling_function()
-def money(x):
-    money_words = ['spend', 'cost']
-    if re.search(r'£\d*', x.text,flags=re.I):
-        return SPAM
-    else:
-        return ABSTAIN

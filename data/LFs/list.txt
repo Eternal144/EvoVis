@@ -1,0 +1,13 @@
+@labeling_function()
+def list(x):
+    import re
+    words = x.text.lower().split(' ')
+    if 'list' in words:
+        if re.search(r'student', x.text):
+            return EDUCATION
+        if 'file' in words:
+            return COMPUTER
+        if 'foods' in words:
+            return HEALTH
+    
+    return ABSTAIN

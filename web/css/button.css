@@ -1,0 +1,108 @@
+/* .selection{
+    display: flex;
+    flex-wrap: nowrap;
+    margin-left: 16px;
+}
+
+.checkbox {
+    display: flex;
+    margin-left: 16px;
+}
+  
+.checkbox input[type="checkbox"] {
+    display: none;
+}
+
+.checkbox label {
+    display: inline-block;
+    position: relative;
+    padding-left: 16px;
+    margin-bottom: 0;
+    font-weight: 400;
+    color: #333;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.checkbox label:before {
+    content: "";
+    display: inline-block;
+    position: absolute;
+    left: 0;
+    top: 2px;
+    width: 12px;
+    height: 12px;
+    border-radius: 3px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+}
+
+.checkbox input[type="checkbox"]:checked + label:before {
+    content: "\2713";
+    color: #fff;
+    background-color: #434242;
+    border-color: #434242;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+} */
+
+#performance-selection{
+    /* width: 100px; */
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+.legend{
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px;
+    margin-left: 12px;
+}
+.legend:hover{
+    cursor: pointer;
+}
+
+.legend > .checkbox{
+    width: 12px;
+    height: 12px;
+    margin-right: 4px;
+    border-radius: 2px;
+}
+.ban{
+    border: 1px solid #ccc;
+}
+/* .performance-point:hover{
+    cursor: pointer;
+} */
+.tooltip{
+    position: absolute;
+    padding: 6px 10px;
+    background-color: #3C4048;
+    border-radius: 2px;
+    /* border: 2px solid rgba(0,0,0,.3); */
+    font-size: 12px;
+    /* text-align: center; */
+    color: #fff;
+    /* display: flex; */
+    flex-wrap: nowrap;
+    opacity: .9;
+    display: none;
+}
+
+.tooltip-labels{
+    text-align: end;
+}
+
+.tooltip-values{
+    min-width: 20px;
+    margin-left: 6px;
+}
+.agg-block:hover{
+    cursor: pointer;
+}
+.update-circle:hover{
+    cursor: pointer;
+}

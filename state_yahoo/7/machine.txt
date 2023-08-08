@@ -1,6 +1,0 @@
-@labeling_function()
-def machine(x):
-    import re
-    if re.search(r'computer|printer|pc', x.text.lower()):
-        return COMPUTER
-    return ABSTAIN

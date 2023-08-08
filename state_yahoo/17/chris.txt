@@ -1,6 +1,0 @@
-@labeling_function()
-def chris(x):
-    import re
-    if re.search(r'christian|church', x.text.lower()):
-        return SOCIAL
-    return ABSTAIN

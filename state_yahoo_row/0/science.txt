@@ -1,7 +1,0 @@
-@labeling_function()
-def science(x):
-    science_words = ["science", "scientist", "scientific", "scientists"]
-    for word in science_words:
-        if word in x.text.lower():
-            return SCIENCE
-    return ABSTAIN

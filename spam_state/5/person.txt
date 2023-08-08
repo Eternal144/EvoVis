@@ -1,5 +1,0 @@
-spacy = SpacyPreprocessor(text_field='text', doc_field='doc', memoize=True)
-@labeling_function(pre=[spacy])
-def person(x):
-    '''Ham comments mention specific people and are short.'''
-    return HAM if len(x.doc) < 20 and any([ent.label_ == 'PERSON' for ent in x.doc.ents]) else ABSTAIN

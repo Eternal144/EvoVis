@@ -1,7 +1,0 @@
-@labeling_function()
-def win(x):
-    win_str = ['win', 'prize']
-    for s in win_str:
-        if s in x.text.lower():
-            return SPAM
-    return ABSTAIN
