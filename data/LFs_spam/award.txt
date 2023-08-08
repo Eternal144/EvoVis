@@ -1,0 +1,7 @@
+@labeling_function()
+def award(x):
+    award_str = ['award']
+    for s in award_str:
+        if s in x.text.lower():
+            return SPAM
+    return ABSTAIN

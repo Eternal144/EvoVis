@@ -42,6 +42,8 @@ let sankeyFlow = new Sankey({
     width: 790,
     margin: { top: 40, left: 20, bottom: 0, right: 80 },
 })
+let testFlag = false
+let sampleNumber = 15000
 
 d3.select('#middle').on('click',()=>{
     aggregationChart.lock = false;
@@ -63,8 +65,10 @@ let perfStore = []
 let data2rectStore = []
 let labelTotal = 0
 let codesStore = []
-let labelNameList = ['Society', 'Science', 'Health', 'Education', 'Computers','Sports']
-let colors = ['#FF7F0E', '#1f77b4', '#8D7B68', '#98DF8A', '#F2CD5C', '#BFACE2']
+
+let labelNameList = []
+let colors = []
+
 let colorMap = new Map()
 let lfsColor = '#A86464'
 colorMap.set(-1, {
@@ -72,16 +76,6 @@ colorMap.set(-1, {
     labelName: 'Abstain',
     opacityColor: hexToRgba('#B2B2B2', 0.3)
 })
-
-labelNameList.forEach((name,i)=>{
-    colorMap.set(i, {
-        color: colors[i],
-        labelName: name,
-        opacityColor: hexToRgba(colors[i], 0.3)
-    })
-})
-d3.selectAll('.color-block')
-    .style('background-color', (d,i)=>colors[i])
 
 let tooltip= d3.select("#root")
 .append("div")
@@ -126,11 +120,12 @@ const processData = (funcs)=>{
     funcInfo = funcVersion.map(x=>(x.funcs_info))
     modelPerf = funcVersion.map(x=>(x.model_performance))
     pointsN = funcVersion[0]['label_train'].length
-    let id = 0
+    let count = 0
+    gFunc2id = new Map()
     funcInfo.forEach(funcs=>{
         for (let name in funcs){
             if(!gFunc2id.has(name)){
-                gFunc2id.set(name, id++)
+                gFunc2id.set(name, count++)
             }
         }
     })
@@ -161,10 +156,27 @@ const processData = (funcs)=>{
 
 async function init(){
     points = await eel.get_coords()()
-    points = points.slice(0, 15000)
+    testFlag = await eel.testState()()
 
-    d3.tsv('../data/yahoo.csv',async function(err, d){
-        texts = d.slice(0, 15000).map((x,i)=>({...x, id: i}))  
+    sampleNumber = testFlag ? 4000 : 15000
+    dataFile = testFlag ? '../data/spam.csv' : '../data/yahoo.csv'
+    labelNameList = testFlag ? ['HAM', 'SPAM'] : ['Society', 'Science', 'Health', 'Education', 'Computers','Sports']
+    colors = testFlag ? ['#FF7F0E', '#98DF8A'] : ['#FF7F0E', '#1f77b4', '#8D7B68', '#98DF8A', '#F2CD5C', '#BFACE2']
+
+    labelNameList.forEach((name,i)=>{
+        colorMap.set(i, {
+            color: colors[i],
+            labelName: name,
+            opacityColor: hexToRgba(colors[i], 0.3)
+        })
+    })
+    d3.selectAll('.color-block')
+        .style('background-color', (d,i)=>colors[i])
+
+    points = points.slice(0, sampleNumber)
+
+    d3.tsv(dataFile,async function(err, d){
+        texts = d.slice(0, sampleNumber).map((x,i)=>({...x, id: i}))  
     })
 }
 

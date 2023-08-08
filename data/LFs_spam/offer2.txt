@@ -1,0 +1,7 @@
+@labeling_function()
+def offer2(x):
+    offer_str = ['offer']
+    for s in offer_str:
+        if s in x.text.lower():
+            return SPAM
+    return ABSTAIN

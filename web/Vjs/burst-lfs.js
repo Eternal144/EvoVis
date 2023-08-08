@@ -115,6 +115,7 @@ class LFsBurst{
         let data = funcVersion[vid]
         const { funcs_info,label_train } = data
         let lfsName = gId2func[fid]
+        // let lfsName = id2func[fid]
         let obj = { name: `${fid+1}-${lfsName}`, children: []}
         funcs_info[lfsName].labelsMap.forEach((v,k)=>{
             let node = {

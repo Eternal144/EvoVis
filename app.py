@@ -5,15 +5,24 @@ import spam
 import numpy as np
 import pandas as pd
 import shutil
+import argparse
 
 eel.init('web')
 ADD = 0
 UPD = 1
 DEL = 2
 KEEP = 3
-# global args
+global args
 record = []
-states_path = './data/state_yahoo/'
+states_path = ''
+result_file_path  = ''
+lfs_path = ''
+data_file = ''
+train_number = 0
+embedding_file = ''
+record_file = ''
+result = []
+count = 1
 
 # get function names from state directory
 def get_func(l):
@@ -30,16 +39,26 @@ def get_func(l):
 
 # get results of the lfs
 def compute(funcVersions):
-    result = []
+    # result = []
     # print(funcVersions)
-    for (vid, version) in enumerate(funcVersions):
-        if vid != 0:
-            result.append(spam.apply_lfs(version, vid, funcVersions[vid-1]))
-        else:
-            result.append(spam.apply_lfs(version, vid))
+        # for (vid, version) in enumerate(funcVersions):
+    #     if vid != 0:
+    #         result.append(spam.apply_lfs(version, vid, funcVersions[vid-1]))
+    #     else:
+    #         result.append(spam.apply_lfs(version, vid))
 
-    with open('./data/result_yahoo.json', 'w') as f:
-        json.dump(result, f)
+    # with open(result_file_path, 'w') as f:
+    #     json.dump(result, f)
+    global count
+    print('-' * 20 + str(count) + '-' * 20)
+    count = count +1
+    global result
+    current = funcVersions[-1]
+    if len(funcVersions) > 1 :
+        last = funcVersions[-2]
+        result.append(spam.apply_lfs(current, len(funcVersions)-1, last))
+    else:
+        result.append(spam.apply_lfs(current, 0))
     return result
     
 
@@ -111,11 +130,10 @@ def parseRecord(rowRecords,rowCodes):
 
 @eel.expose
 def readLFsList():
-    dir = './data/LFs'
-    file_names = os.listdir(dir)
+    file_names = os.listdir(lfs_path)
     LFsList = []
     for (i,file_name) in enumerate(file_names):
-        file_path = os.path.join(dir, file_name)
+        file_path = os.path.join(lfs_path, file_name)
         with open(file_path) as f: 
             texts = f.read()
             LFsList.append({
@@ -126,11 +144,11 @@ def readLFsList():
     return LFsList
 
 def run():
-    spam.base = 15000
-    spam.data = pd.read_csv('./data/yahoo_15000.csv', header=0, delimiter='\t', encoding='unicode_escape')
+    spam.base = train_number
+    spam.data = pd.read_csv(data_file, header=0, delimiter='\t', encoding='unicode_escape')
 
-    spam.df_train = spam.data[:15000]
-    spam.df_test = spam.data[15000:]
+    spam.df_train = spam.data[:train_number]
+    spam.df_test = spam.data[train_number:]
 
     # with open('records_yahoo_test.json') as f:
     #     rowRecords = json.load(f)
@@ -142,7 +160,7 @@ def run():
 
 @eel.expose
 def writeFile(data):
-    global record
+    global record, count
     # if data['id']==0 & len(record)>0:
     #     record = []
     result = []
@@ -171,15 +189,19 @@ def writeFile(data):
         record.pop()
         shutil.rmtree(file_path)
         print(f"An error occurred: {e}")
+        count = count - 1
 
-    with open('./data/records_yahoo.json', 'w') as f:
+    with open(record_file, 'w') as f:
         json.dump(record, f)
     return result
-    
+
+@eel.expose
+def testState():
+    return args.test
 
 @eel.expose
 def get_coords():
-    doc_vector = np.load('./data/yahoo.npy')
+    doc_vector = np.load(embedding_file)
     return doc_vector.tolist()
  
 @eel.expose
@@ -199,9 +221,24 @@ def num2portion(data):
         del level1["size"]
     return data
 
-shutil.rmtree(states_path)
-os.mkdir(states_path)
 
-# if __name__ == '__main__': # args = parse_args()
+
+def update(testFlag):
+    global states_path, result_file_path, lfs_path, data_file, train_number,embedding_file,record_file
+    states_path = './data/state_spam/' if testFlag else './data/state_yahoo/'
+    result_file_path = './data/result_spam.json' if testFlag else './data/result_yahoo.json'
+    lfs_path = './data/LFs_spam' if testFlag else './data/LFs_yahoo'
+    data_file = './data/spam.csv' if testFlag else './data/yahoo_15000.csv'
+    train_number = 4000 if  testFlag else 15000 
+    embedding_file = './data/spam.npy' if testFlag else './data/yahoo.npy'
+    record_file = './data/records_spam.json' if testFlag else './data/records_yahoo.json'
+    shutil.rmtree(states_path)
+    os.mkdir(states_path)
+
+if __name__ == '__main__': 
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--test', type=int, default=False, help='number of training data')
+    args = parser.parse_args()
+    update(args.test)
 
 eel.start('index.html', mode="chrome-app", port=8080)

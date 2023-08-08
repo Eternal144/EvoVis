@@ -34,6 +34,7 @@ const toggleView = ()=>{
 
 const updateFunc = (type, data)=>{
     let index = updateRecord.add.findIndex(x=>x.id === data.id)
+    // let index = updateRecord.update.findIndex(x=>x.id === data.id)
     if(type === 'del'){
         if (index!==-1){
             updateRecord.add.splice(index, 1)
@@ -44,12 +45,13 @@ const updateFunc = (type, data)=>{
         if(index !== -1){
             updateRecord.add[index] = data
         }else{
+            uid = updateRecord.update.findIndex(x=>x.id === data.id)
+            if(uid !==-1){return}
             updateRecord[type].push(data)
         }
     }else{
         updateRecord[type].push(data)
     }
-    
 }
 
 async function trainModel() {

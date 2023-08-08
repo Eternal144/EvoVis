@@ -1,5 +1,6 @@
 import pandas as pd
 import numpy as np
+import re
 # from pandas.core.frame import DataFrame
 from snorkel.labeling import labeling_function
 from snorkel.labeling import PandasLFApplier

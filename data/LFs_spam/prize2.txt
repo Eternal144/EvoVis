@@ -1,0 +1,3 @@
+@labeling_function()
+def prize2(x):
+    return SPAM if 'prize' in x.text.lower() else ABSTAIN
