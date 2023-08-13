@@ -1,0 +1,9 @@
+@labeling_function()
+def study(x):
+    import re
+    if re.search(r'study', x.text, re.IGNORECASE):
+        if re.search('school|university|college', x.text, re.IGNORECASE):
+            return EDUCATION
+    
+    
+    return ABSTAIN

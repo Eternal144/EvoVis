@@ -1,0 +1,13 @@
+@labeling_function()
+def key(x):
+    import re
+    # topic words for society & culture
+    if re.search(r'society culture|social issue', x.text.lower()):
+        return SOCIAL
+    if re.search(r'pc', x.text.lower()):
+        return COMPUTER
+    if re.search(r'learning|school|classroom|teaching', x.text.lower()):
+        return EDUCATION
+    return ABSTAIN
+       
+    

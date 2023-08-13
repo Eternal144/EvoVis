@@ -1,0 +1,8 @@
+@labeling_function()
+def ball(x):
+    ball_games = ["ball"]
+    import re
+    for game in ball_games:
+        if re.search(game, x.text, re.IGNORECASE):
+            return SPORTS
+    return ABSTAIN

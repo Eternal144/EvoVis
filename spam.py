@@ -74,6 +74,11 @@ def getPerformance(preds):
             groundTruth.append(label)
             predicts.append(pred)
     f1 = f1_score(groundTruth, predicts, average=None)
+    pre = precision_score(groundTruth, predicts, average=None)
+    pre = [float('{:.3f}'.format(i)) for i in pre.tolist()]
+    print('precision----------------------------')
+    print(pre)
+
     perf = [float('{:.3f}'.format(i)) for i in f1.tolist()]
     return perf
 
@@ -114,9 +119,8 @@ def apply_lfs(funcs, id, lastFuncs = []):
     weights = label_model.get_weights()
 
     coverage = getCoverage(preds_train)
-    # print(type(LFAnalysis(L=L_train, lfs=lfs).lf_summary()))
     print(LFAnalysis(L=L_train, lfs=lfs).lf_summary())
-    print('precision----------------------------')
+    print('f1----------------------------')
     print(performance)
     print('coverage----------------------')
     print(coverage)

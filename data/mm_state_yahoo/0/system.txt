@@ -1,0 +1,7 @@
+@labeling_function()
+def system(x):
+    import re
+    if re.search(r'system', x.text.lower()):
+        if re.search(r'32|64', x.text.lower()):
+            return COMPUTER
+    return ABSTAIN

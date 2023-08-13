@@ -1,0 +1,11 @@
+@labeling_function()
+def uni(x):
+    import re
+    if re.search(r'universit|college', x.text, re.IGNORECASE):
+        return EDUCATION
+    elif re.search(r'universe', x.text, re.IGNORECASE):
+        return SCIENCE
+    elif re.search(r'united states', x.text, re.IGNORECASE):
+        return SOCIAL
+    else:
+        return ABSTAIN

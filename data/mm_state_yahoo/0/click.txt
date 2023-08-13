@@ -1,0 +1,9 @@
+@labeling_function()
+def click(x):
+    import re
+    if re.search(r'click', x.text.lower()):
+        if re.search(r'button|toolbar', x.text.lower()):
+            return COMPUTER
+        elif re.search(r'rate', x.text.lower()):
+            return HEALTH
+    return ABSTAIN

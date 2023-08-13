@@ -1,0 +1,8 @@
+@labeling_function()
+def ache(x):
+    import re
+    if re.search(r'\w{3,}ache\b', x.text.lower()):
+        return HEALTH
+    else:
+        return ABSTAIN
+

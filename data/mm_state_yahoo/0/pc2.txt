@@ -1,0 +1,7 @@
+@labeling_function()
+def pc2(x):
+    import re
+    if 'pc' in x.text.lower().split(' '):
+        return COMPUTER
+    
+    return ABSTAIN

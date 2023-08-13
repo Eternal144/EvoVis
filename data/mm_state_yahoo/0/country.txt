@@ -1,0 +1,7 @@
+@labeling_function()
+def country(x):
+    import re
+    if re.search(r'countr', x.text.lower()):
+        return SOCIAL
+    else:
+        return ABSTAIN

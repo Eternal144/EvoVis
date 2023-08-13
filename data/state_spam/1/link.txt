@@ -1,0 +1,7 @@
+@labeling_function()
+def link(x):
+    
+    if re.search(r'www\.[-A-Za-z0-9+&@#/%?=~_|!:,.;]+[-A-Za-z0-9+&@#/%=~_|]', x.text, flags=re.I):
+        return SPAM
+    else:
+        return ABSTAIN

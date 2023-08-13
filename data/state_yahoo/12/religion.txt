@@ -1,0 +1,6 @@
+@labeling_function()
+def religion(x):
+    import re
+    if re.search(r'religion', x.text.lower()):
+        return SOCIAL
+    return ABSTAIN

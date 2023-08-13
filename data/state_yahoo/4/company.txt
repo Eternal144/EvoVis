@@ -1,0 +1,9 @@
+@labeling_function()
+def company(x):
+    import re
+    if re.search(r"company", x.text.lower(), re.IGNORECASE):
+        if re.search(r"insurance", x.text.lower()):
+            return HEALTH
+        if re.search(r"server|software", x.text.lower()):
+            return COMPUTER
+    return ABSTAIN

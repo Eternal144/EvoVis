@@ -1,0 +1,5 @@
+@labeling_function()
+def poem(x):
+    if "poem" in x.text.lower().split():
+        return EDUCATION
+    return ABSTAIN

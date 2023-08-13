@@ -1,0 +1,6 @@
+@labeling_function()
+def nba(x):
+    import re
+    if re.search(r'nba', x.text.lower()):
+        return SPORTS
+    return ABSTAIN

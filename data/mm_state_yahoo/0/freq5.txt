@@ -1,0 +1,12 @@
+@labeling_function()
+def freq5(x):
+    words = x.text.lower().split(' ')
+    freq_science = ['electromagnetic', 'angular', 'friction']
+    freq_education = ['mba', 'gpa', 'semester']
+    for word in freq_science:
+        if word in words:
+            return SCIENCE
+    for word in freq_education:
+        if word in words:
+            return EDUCATION
+    return ABSTAIN
