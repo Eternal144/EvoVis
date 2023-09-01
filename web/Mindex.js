@@ -14,11 +14,16 @@ var trainLock = false
 let candidateView = new CandidateView()
 let selectedView = new SelectedView()
 
+// async function init() {
+//     d3.select('.maneuver-container').style('display', 'flex')
+//     d3.select('.visualization-container').style('display', 'none')
+//     candidateLFs = await eel.readLFsList()()
+//     candidateView.updateCandidate()
+// }
+
 async function init() {
-    d3.select('.maneuver-container').style('display', 'flex')
-    d3.select('.visualization-container').style('display', 'none')
-    candidateLFs = await eel.readLFsList()()
-    candidateView.updateCandidate()
+    d3.select('.maneuver-container').style('display', 'none')
+    d3.select('.visualization-container').style('display', 'flex')
 }
 
 const toggleView = ()=>{

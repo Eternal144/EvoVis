@@ -1,0 +1,13 @@
+@labeling_function()
+def whatis_v4(x):
+    import re
+    if re.search(r'^what is', x.text.lower()):
+        if re.search(r'software', x.text.lower()):
+            return COMPUTER
+        elif 'x' in x.text.lower().split(' '):
+            return SCIENCE
+        elif 'shall' in x.text.lower().split(' ') or 'religion' in x.text.lower().split(' '):
+            return SOCIAL
+        elif re.search(r'treatment|doctor|blood',  x.text.lower()):
+            return HEALTH
+    return ABSTAIN

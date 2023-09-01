@@ -66,11 +66,23 @@ let data2rectStore = []
 let labelTotal = 0
 let codesStore = []
 
-let labelNameList = []
-let colors = []
+let labelNameList = ['Society', 'Science', 'Health', 'Education', 'Computers','Sports']
+let colors = ['#FF7F0E', '#1f77b4', '#8D7B68', '#98DF8A', '#F2CD5C', '#BFACE2']
 
 let colorMap = new Map()
 let lfsColor = '#A86464'
+
+
+labelNameList.forEach((name,i)=>{
+    colorMap.set(i, {
+        color: colors[i],
+        labelName: name,
+        opacityColor: hexToRgba(colors[i], 0.3)
+    })
+})
+d3.selectAll('.color-block')
+    .style('background-color', (d,i)=>colors[i])
+
 colorMap.set(-1, {
     color: '#B2B2B2',
     labelName: 'Abstain',
@@ -154,40 +166,56 @@ const processData = (funcs)=>{
     initSummary()
 }
 
-async function init(){
-    points = await eel.get_coords()()
-    testFlag = await eel.testState()()
+// async function init(){
+//     points = await eel.get_coords()()
+//     testFlag = await eel.testState()()
 
-    sampleNumber = testFlag ? 4000 : 15000
-    dataFile = testFlag ? '../data/spam.csv' : '../data/yahoo.csv'
-    labelNameList = testFlag ? ['HAM', 'SPAM'] : ['Society', 'Science', 'Health', 'Education', 'Computers','Sports']
-    colors = testFlag ? ['#FF7F0E', '#98DF8A'] : ['#FF7F0E', '#1f77b4', '#8D7B68', '#98DF8A', '#F2CD5C', '#BFACE2']
+//     sampleNumber = testFlag ? 4000 : 15000
+//     dataFile = testFlag ? '../data/spam.csv' : '../data/yahoo.csv'
+//     labelNameList = testFlag ? ['HAM', 'SPAM'] : ['Society', 'Science', 'Health', 'Education', 'Computers','Sports']
+//     colors = testFlag ? ['#FF7F0E', '#98DF8A'] : ['#FF7F0E', '#1f77b4', '#8D7B68', '#98DF8A', '#F2CD5C', '#BFACE2']
 
-    labelNameList.forEach((name,i)=>{
-        colorMap.set(i, {
-            color: colors[i],
-            labelName: name,
-            opacityColor: hexToRgba(colors[i], 0.3)
-        })
-    })
-    d3.selectAll('.color-block')
-        .style('background-color', (d,i)=>colors[i])
+//     labelNameList.forEach((name,i)=>{
+//         colorMap.set(i, {
+//             color: colors[i],
+//             labelName: name,
+//             opacityColor: hexToRgba(colors[i], 0.3)
+//         })
+//     })
+//     d3.selectAll('.color-block')
+//         .style('background-color', (d,i)=>colors[i])
 
-    points = points.slice(0, sampleNumber)
+//     points = points.slice(0, sampleNumber)
 
-    d3.tsv(dataFile,async function(err, d){
-        texts = d.slice(0, sampleNumber).map((x,i)=>({...x, id: i}))  
-    })
-}
+//     d3.tsv(dataFile,async function(err, d){
+//         texts = d.slice(0, sampleNumber).map((x,i)=>({...x, id: i}))  
+//     })
+// }
 
-const visUpdate = (funcs)=>{
+// const visUpdate = (funcs)=>{
+//     console.log(funcs)
+//     selectedRange = [0, funcs.length]
+//     processData(funcs)
+//     versionFilter.updateRange()    
+//     textReview.renderTexts([1,2,3,5,156,235,34,24])
+//     trainLock = false
+// }
+
+
+d3.json(`../data/result_yahoo.json`, async function(err, funcs){
+    console.log(funcs)
     selectedRange = [0, funcs.length]
-    processData(funcs)
-    versionFilter.updateRange()    
-    textReview.renderTexts([1,2,3,5,156,235,34,24])
-    trainLock = false
-}
-
+    points = await eel.get_coords()()
+    points = points.slice(0, 15000)
+    d3.tsv('../data/yahoo.csv',async function(err, d){
+        if(err) { return; }
+        texts = d.slice(0, 15000).map((x,i)=>({...x, id: i}))   
+        processData(funcs)
+        
+        versionFilter.updateRange()    
+        textReview.renderTexts([1,2,3,5,156,235,34,24])
+    })
+})
 
 const clearTooltip = ()=>{
     tooltip.style('display', 'none')

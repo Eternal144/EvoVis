@@ -4,4 +4,4 @@ def subscribe_new(x):
     for s in subscribe_str:
         if s in x.text.lower():
             return SPAM
-    return ABSTAIN
+    return HAM

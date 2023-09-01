@@ -3,6 +3,7 @@ const thumb = document.createElement('div');
 thumb.classList.add('slider-thumb');
 slider.appendChild(thumb);
 
+
 let isDragging = false;
 
 function setThumbPosition(position) {

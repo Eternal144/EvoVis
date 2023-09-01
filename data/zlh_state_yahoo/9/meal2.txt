@@ -1,0 +1,8 @@
+@labeling_function()
+def meal2(x):
+    import re
+    if re.search(r'diet', x.text.lower()):
+        return HEALTH
+    elif re.search(r'food|meal', x.text.lower()) and re.search(r'fat|weight|fruit', x.text.lower()) :
+        return HEALTH
+    return ABSTAIN

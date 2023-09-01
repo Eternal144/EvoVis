@@ -29,7 +29,7 @@ pd.set_option('max_colwidth',100)
 global data, df_train, df_test, base
 
 '''
-Data for Yahoo! Answers
+Data for Yahoo! Answers 
 '0': Society & Culture
 '1': Science & Mathematics
 '2': Health

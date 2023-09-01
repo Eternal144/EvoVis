@@ -81,11 +81,19 @@ class LFsTable{
 
                     let f_index = funcVersion[selectedVersion].lfs_name.findIndex(x=>x === d.tableValue.name.split('-')[1])
                     let lfs = funcVersion[selectedVersion].link2LFs[f_index]
-                    sankeyFlow.highlightLink(lfs)
 
-                    //trigger the label relation update. replace burst 
-                    togglePie('func')   
-                    funcPortionPie.renderBurst(selectedVersion, +d.tableValue.name.split('-')[0]-1)
+                    if(f_index !== -1){
+                        sankeyFlow.highlightLink(lfs)
+
+                        //trigger the label relation update. replace burst 
+                        togglePie('func')   
+                        funcPortionPie.renderBurst(selectedVersion, +d.tableValue.name.split('-')[0]-1)
+                    }else{
+                        lfs = funcVersion[selectedVersion-1].link2LFs[f_index]
+                        togglePie('func')   
+                        funcPortionPie.renderBurst(selectedVersion-1, +d.tableValue.name.split('-')[0]-1)
+                    }
+                    
                     
                 })
     } 

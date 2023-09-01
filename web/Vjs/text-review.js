@@ -5,6 +5,7 @@ class TextReview{
     
     renderTexts(ids){
         let labels = funcVersion[selectedVersion].label_train
+        console.log(ids, texts)
         let filterTexts = ids.map(id=>({ text: texts[id].text, id }))
         this.container.empty()
         let textUpdate = d3.select('#text-review-container')

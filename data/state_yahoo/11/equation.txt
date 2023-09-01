@@ -1,0 +1,6 @@
+@labeling_function()
+def equation(x):
+    if re.search(r'equation|math', x.text.lower()) :
+        return SCIENCE
+    else:
+        return ABSTAIN

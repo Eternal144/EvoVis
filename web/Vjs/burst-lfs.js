@@ -85,7 +85,12 @@ class LFsBurst{
                 }else{
                     this.selectedCgr = p.data
                     // this.targetTids = p.data.data
-                    textReview.renderTexts(p.data.data)
+                    if(filterFlag){
+                        textReview.renderTexts(this.renderFilterText())
+                    }else{
+                        textReview.renderTexts(p.data.data)
+                    }
+                    
                 }
             });
     
@@ -142,6 +147,7 @@ class LFsBurst{
         d3.select('#lfs-relation-svg')
             .style('display', '')
     }
+
     renderEntireText(){
         textReview.renderTexts(this.selectedCgr.data)
     }

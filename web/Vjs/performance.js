@@ -155,12 +155,14 @@ class PerformanceLine{
                             .merge(circleUpdate)
                             .attr('class', 'perf-circle')
                             .on('mouseover', function(perf,j){
+                                console.log(perf,i)
                                 d3.select(this).style('r', 4)
 
                                 const data = [
                                     {
                                         key: 'version',
-                                        value: `1-${selectedVersion+1}`
+                                        value: `1-${selectedRange[0]+j+1}`
+                                        // value: `1-${selectedVersion+1+j}`
                                     },
                                     {
                                         key: 'label',
